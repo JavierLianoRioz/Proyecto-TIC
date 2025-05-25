@@ -1,12 +1,25 @@
 services:
-  mc:
+  minecraft:
     image: itzg/minecraft-server
-    tty: true
-    stdin_open: true
+    container_name: mi_servidor_minecraft # Nombre opcional para el contenedor
     ports:
-      - "25565:25565"
+      - "25565:25565" # Puerto de Minecraft (host:container)
     environment:
-      EULA: "TRUE"
+      EULA: "TRUE"                # ¡Importante! Debes aceptar el EULA de Mojang
+      MEMORY: "2G"                # Memoria RAM asignada al servidor (ej: 1G, 2G, 4G)
+      TYPE: "PAPER"               # Tipo de servidor: VANILLA, SPIGOT, PAPER, FORGE, FABRIC, etc.
+      VERSION: "LATEST"           # Versión de Minecraft (ej: 1.20.4, LATEST)
+      # --- Opcionales pero útiles ---
+      MOTD: "¡Bienvenido a mi servidor de Minecraft!" # Mensaje del día
+      DIFFICULTY: "normal"        # Dificultad: peaceful, easy, normal, hard
+      GAMEMODE: "survival"        # Modo de juego: survival, creative, adventure, spectator
+      MAX_PLAYERS: "10"           # Máximo de jugadores
+      OPS: "tu_nombre_de_usuario_mc" # Nombres de usuario de Minecraft que serán operadores (separados por coma)
+      # ENABLE_RCON: "true"       # Habilitar RCON (para administración remota)
+      # RCON_PORT: "25575"
+      # RCON_PASSWORD: "tu_contraseña_rcon_segura"
+      # TZ: "America/Mexico_City" # Zona horaria para los logs
     volumes:
-      # attach the relative directory 'data' to the container's /data path
-      - ./data:/data
+      - ./minecraft-data:/data  # Mapea la carpeta 'minecraft-data' local a '/data' dentro del contenedor
+                                # Aquí se guardarán los mundos, plugins, logs, etc.
+    restart: unless-stopped     # Reinicia el contenedor a menos que se detenga manualmente

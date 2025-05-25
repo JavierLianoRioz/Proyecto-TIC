@@ -1,2 +1,3 @@
-ISOs/nixos.iso
+ISOs/*
 vm_vs_docker_benchmark/scripts/data
+vm_vs_docker_benchmark/cloud-init/cloud-init.iso

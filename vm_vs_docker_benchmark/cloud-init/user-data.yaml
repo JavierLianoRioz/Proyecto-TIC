@@ -1,0 +1,35 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+packages:
+  - openjdk-17-jre-headless
+users:
+  - name: minecraft
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: sudo
+    home: /home/minecraft
+    create_home: true
+runcmd:
+  - mkdir -p /home/minecraft/server
+  - chown -R minecraft:minecraft /home/minecraft/server
+  - sudo -u minecraft wget -O /home/minecraft/server/server.jar https://launcher.mojang.com/v1/objects/fe3a1a7a7a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a/server.jar
+  - echo "eula=true" > /home/minecraft/server/eula.txt
+  - |
+    cat <<EOF > /etc/systemd/system/minecraft.service
+    [Unit]
+    Description=Minecraft Server
+    After=network.target
+
+    [Service]
+    User=minecraft
+    WorkingDirectory=/home/minecraft/server
+    ExecStart=/usr/bin/java -Xmx1024M -Xms1024M -jar server.jar nogui
+    Restart=on-failure
+
+    [Install]
+    WantedBy=multi-user.target
+    EOF
+  - systemctl daemon-reload
+  - systemctl enable minecraft.service
+  - systemctl start minecraft.service
