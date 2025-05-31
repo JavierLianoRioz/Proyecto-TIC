@@ -3,15 +3,13 @@
 This project compares resource usage and performance metrics between a full virtual machine (VirtualBox) and a Docker container.
 
 ## 🔧 Project Structure
-- `notebooks/`: Jupyter Notebook for running and plotting benchmarks
 - `scripts/`: Setup scripts for VM, Docker, and Dockerfile itself
-- `results/`: Placeholder for benchmark results
 
 ## 📦 Requirements
+- windows 10
 - Python 3.8+
-- Docker (host or WSL2)
-- VirtualBox (with a Linux guest)
-- `sysbench`, `jupyter`, `matplotlib`, `psutil`
+- Docker
+- VirtualBox
 
 ## 🚀 Quick Start
 ```bash
