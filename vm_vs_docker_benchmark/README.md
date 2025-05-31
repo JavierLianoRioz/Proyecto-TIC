@@ -19,3 +19,5 @@ This project compares resource usage and performance metrics between a full virt
 cd scripts
 bash vm_setup.sh      # For VirtualBox
 bash docker_setup.sh  # For Docker or WSL2
+```
+[after launch and configure vm read this](https://github.com/JavierLianoRioz/Proyecto-TIC/blob/main/vm_vs_docker_benchmark/scripts/afterlaunchingwm.md)
